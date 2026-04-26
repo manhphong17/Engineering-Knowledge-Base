@@ -110,6 +110,10 @@ Các hệ thống **bảng giá chứng khoán** hoặc **tỉ số bóng đá**
 
 **Write-through** là chiến lược mà việc ghi dữ liệu sẽ được thực hiện **đồng thời** trên cả cache và database.
 
+![Sơ đồ Write-Through](/images/system_design/cache/write-through.png)
+
+> Hình: Luồng Write-Through (ghi đồng thời cache và database trong cùng luồng xử lý).
+
 Chỉ khi dữ liệu được ghi **thành công vào cả hai nơi**, thao tác ghi mới được coi là hoàn thành.
 
 **Cách hoạt động:**
@@ -146,6 +150,10 @@ Chỉ khi dữ liệu được ghi **thành công vào cả hai nơi**, thao tá
 
 **Ghi trực tiếp vào Database** và bỏ qua Cache.
 
+![Sơ đồ Write-Around](/images/system_design/cache/write-around.png)
+
+> Hình: Luồng Write-Around (ghi thẳng DB, cache chỉ được nạp khi có request đọc).
+
 Dữ liệu chỉ vào Cache khi có thao tác **Đọc** sau đó.
 
 **Cơ chế:**
@@ -170,6 +178,10 @@ Ghi (App) → Database → Thành công
 
 Khác với **write-through**, **write-back** là chiến lược ghi **không đồng bộ** vào cache và database.
 
+![Sơ đồ Write-Back](/images/system_design/cache/write-back.png)
+
+> Hình: Luồng Write-Back (ghi vào cache trước, đồng bộ xuống database theo lô/chu kỳ).
+
 Dữ liệu sẽ được **ghi vào cache trước**, và sau đó được **tích lũy** rồi **ghi vào database theo chu kỳ** (từng lô lớn).
 
 Điều này giúp **giảm tải** cho database và cải thiện **tốc độ thực thi**.
@@ -187,7 +199,7 @@ Dữ liệu sẽ được **ghi vào cache trước**, và sau đó được **t
 
 **Ví dụ thực tế:**
 
-- **ổ cứng SSD**: Ghi dữ liệu không đồng bộ vào cache rồi ghi vào đĩa theo từng chu kỳ
+- **Ổ cứng SSD**: Ghi dữ liệu không đồng bộ vào cache rồi ghi vào đĩa theo từng chu kỳ
 - **Ghi log**: Lưu dữ liệu vào buffer trước khi chuyển đến hệ thống lưu trữ chính
 - **Ứng dụng tin nhắn**: Đồng bộ tin nhắn giữa local storage với cloud
 
