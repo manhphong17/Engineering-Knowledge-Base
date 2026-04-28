@@ -1,5 +1,5 @@
 ---
-title: "Cache Design (Phần 2) - Read & Write Strategies"
+title: "Cache Design (Phần 2) - Đọc và ghi: chọn chiến lược nào?"
 date: "2026-04-23"
 tags:
   - system-design
@@ -9,15 +9,17 @@ tags:
   - distributed-systems
 ---
 
-## Phần II: Read & Write Strategies
+## Phần II: Chiến lược đọc và ghi
 
-### 5. Các chiến lược Đọc (Read Strategies)
+### 5. Đọc dữ liệu từ cache như thế nào?
 
 #### 5.1 Cache-Aside (Lazy Loading)
 
 **Đây là chiến lược phổ biến nhất.**
 
-![Sơ đồ Cache-Aside](/images/system_design/cache/cache-aside.png)
+<div align="center">
+  <img src="/images/system_design/cache/cache-aside.png" alt="Sơ đồ Cache-Aside" />
+</div>
 
 *Hình: Luồng hoạt động Cache-Aside (đọc cache trước, miss thì xuống DB rồi ghi ngược lên cache).* 
 
@@ -46,11 +48,13 @@ Trang chi tiết sản phẩm trên **Tiki/Shopee**:
 - Nếu không thấy mới query **DB**
 
 
-#### 5.2 Read-Through
+#### 5.2 Read-Through — để tầng cache tự lo
 
 Khác với **Cache-Aside** (nơi ứng dụng quản lý cả DB và Cache).
 
-![Sơ đồ Read-Through](/images/system_design/cache/read-through.png)
+<div align="center">
+  <img src="/images/system_design/cache/read-through.png" alt="Sơ đồ Read-Through" />
+</div>
 
 *Hình: Luồng Read-Through (ứng dụng chỉ gọi cache/provider, miss thì provider tự đọc DB).* 
 
@@ -75,11 +79,13 @@ Nếu **Cache Miss**, chính lớp Cache này sẽ tự đi tìm dữ liệu ở
 Sử dụng **Guava Cache** hoặc các thư viện tích hợp sẵn để load dữ liệu từ ổ đĩa lên RAM.
 
 
-#### 5.3 Refresh-Ahead
+#### 5.3 Refresh-Ahead — nạp trước khi ai hỏi
 
 Chiến lược này **dự đoán** dữ liệu nào sắp hết hạn hoặc sắp được truy cập.
 
-![Sơ đồ Refresh-Ahead](/images/system_design/cache/refresh-ahead.png)
+<div align="center">
+  <img src="/images/system_design/cache/refresh-ahead.png" alt="Sơ đồ Refresh-Ahead" />
+</div>
 
 *Hình: Luồng Refresh-Ahead (hệ thống chủ động refresh dữ liệu trước khi request tới).* 
 
@@ -104,13 +110,15 @@ Các hệ thống **bảng giá chứng khoán** hoặc **tỉ số bóng đá**
 - Người dùng không thể chờ đợi việc load từ DB khi Cache hết hạn
 
 
-### 6. Các chiến lược Ghi (Write Strategies)
+### 6. Ghi dữ liệu: cache và database đồng bộ như thế nào?
 
 #### 6.1 Write-Through
 
 **Write-through** là chiến lược mà việc ghi dữ liệu sẽ được thực hiện **đồng thời** trên cả cache và database.
 
-![Sơ đồ Write-Through](/images/system_design/cache/write-through.png)
+<div align="center">
+  <img src="/images/system_design/cache/write-through.png" alt="Sơ đồ Write-Through" />
+</div>
 
 > Hình: Luồng Write-Through (ghi đồng thời cache và database trong cùng luồng xử lý).
 
@@ -146,11 +154,13 @@ Chỉ khi dữ liệu được ghi **thành công vào cả hai nơi**, thao tá
 - **Tài nguyên hạn chế** (ví dụ: hệ thống nhúng, IoT)
 
 
-#### 6.2 Write-Around
+#### 6.2 Write-Around — bỏ qua cache khi ghi
 
 **Ghi trực tiếp vào Database** và bỏ qua Cache.
 
-![Sơ đồ Write-Around](/images/system_design/cache/write-around.png)
+<div align="center">
+  <img src="/images/system_design/cache/write-around.png" alt="Sơ đồ Write-Around" />
+</div>
 
 > Hình: Luồng Write-Around (ghi thẳng DB, cache chỉ được nạp khi có request đọc).
 
@@ -174,11 +184,13 @@ Ghi (App) → Database → Thành công
 - **Báo cáo định kỳ**
 
 
-#### 6.3 Write-Back (Write-Behind)
+#### 6.3 Write-Back — ghi cache trước, đẳy xuống DB sau
 
 Khác với **write-through**, **write-back** là chiến lược ghi **không đồng bộ** vào cache và database.
 
-![Sơ đồ Write-Back](/images/system_design/cache/write-back.png)
+<div align="center">
+  <img src="/images/system_design/cache/write-back.png" alt="Sơ đồ Write-Back" />
+</div>
 
 > Hình: Luồng Write-Back (ghi vào cache trước, đồng bộ xuống database theo lô/chu kỳ).
 
@@ -204,7 +216,7 @@ Dữ liệu sẽ được **ghi vào cache trước**, và sau đó được **t
 - **Ứng dụng tin nhắn**: Đồng bộ tin nhắn giữa local storage với cloud
 
 
-## Kết Luận
+## Kết luận
 
 **Cache là một công cụ mạnh mẽ nhưng đòi hỏi sự hiểu biết sâu sắc.**
 

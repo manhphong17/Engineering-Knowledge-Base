@@ -4,6 +4,17 @@ import { useEffect, useState } from "react";
 
 type Theme = "light" | "dark";
 
+// Suppress React 19 warning about inline scripts for the theme init script
+if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
+  const originalError = console.error;
+  console.error = (...args: any[]) => {
+    if (typeof args[0] === "string" && args[0].includes("Encountered a script tag")) {
+      return;
+    }
+    originalError.apply(console, args);
+  };
+}
+
 const storageKey = "kb-theme";
 
 function getInitialTheme(): Theme {
