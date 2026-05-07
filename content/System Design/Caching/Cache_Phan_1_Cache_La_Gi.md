@@ -38,9 +38,7 @@ Phần này sẽ giúp bạn hiểu:
 
 Hầu hết chúng ta không nhận ra rằng: **CPU nhanh hơn bộ nhớ (RAM) hàng trăm lần**.
 
-<div align="center">
-  <img src="/images/system_design/cache/2.1.png" alt="Sơ đồ 2.1" />
-</div>
+![Sơ đồ 2.1](/images/system_design/cache/2.1.png)
 
 
 #### 2.2 Phân tầng bộ nhớ — cái nào cần gấp thì để gần
@@ -53,20 +51,14 @@ Vì không thể làm cho mọi bộ nhớ đều nhanh như CPU (vì quá đắ
 
 #### 2.3 Tại sao cache hiệu quả — tính cục bộ của dữ liệu
 
-<div align="center">
-  <img src="/images/system_design/cache/2.3.png" alt="Sơ đồ 2.3" />
-</div>
+![Sơ đồ 2.3](/images/system_design/cache/2.3.png)
 
 ### 3. Cache không miễn phí — luôn có đánh đổi
 
-<div align="center">
-  <img src="/images/system_design/cache/3.png" alt="Sơ đồ 3" />
-</div>
+![Sơ đồ 3](/images/system_design/cache/3.png)
 
 
 ### 4. Cache xuất hiện ở đâu trong hệ thống?
 
-<div align="center">
-  <img src="/images/system_design/cache/4.png" alt="Sơ đồ 4" />
-</div>
+![Sơ đồ 4](/images/system_design/cache/4.png)
 
